@@ -209,9 +209,13 @@ async function checkMembership(userId) {
 async function verifyUser(ctx, next) {
     const userId = ctx.from.id;
     const isDeveloper = global.DEVELOPER.includes(userId.toString());
+    
+    // Developer is always exempt from membership checks
+    if (isDeveloper) return next();
+    
     const isMember = await checkMembership(userId);
 
-    if (!isMember && !isDeveloper) {
+    if (!isMember) {
         return ctx.replyWithPhoto(global.pp, {
             caption: "💱 Please subscribe to the channels first ✅",
             parse_mode: "Markdown",
