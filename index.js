@@ -203,14 +203,7 @@ bot.command("report", async (ctx) => {
 });*/
 
 async function checkMembership(userId) {
-    try {
-        const isInGroup = await bot.telegram.getChatMember(GROUP_ID, userId);
-        const isInChannel = await bot.telegram.getChatMember(CHANNEL_ID, userId);
-        return isInGroup.status !== 'left' && isInChannel.status !== 'left';
-    } catch (err) {
-        console.error("checkMembership error:", err);
-        return false; // Assume user is not a member on failure
-    }
+    return true; // Mandatory subscription disabled
 }
 
 async function verifyUser(ctx, next) {
